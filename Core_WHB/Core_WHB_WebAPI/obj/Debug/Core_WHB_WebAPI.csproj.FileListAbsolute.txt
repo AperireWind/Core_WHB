@@ -100,4 +100,6 @@ E:\W whb\S_CSharpProgram\P_My_GIT\Core_WHB\Core_WHB_WebAPI\bin\roslyn\vbc.exe
 E:\W whb\S_CSharpProgram\P_My_GIT\Core_WHB\Core_WHB_WebAPI\bin\roslyn\vbc.exe.config
 E:\W whb\S_CSharpProgram\P_My_GIT\Core_WHB\Core_WHB_WebAPI\bin\roslyn\vbc.rsp
 E:\W whb\S_CSharpProgram\P_My_GIT\Core_WHB\Core_WHB_WebAPI\bin\roslyn\VBCSCompiler.exe.config
-E:\W whb\S_CSharpProgram\P_My_GIT\Core_WHB\Core_WHB_WebAPI\obj\Debug\Core_WHB_WebAPI.csprojAssemblyReference.cache
+E:\W whb\S_CSharpProgram\P_My_GIT\Core_WHB\Core_WHB_WebAPI\bin\System.Web.Cors.dll
+E:\W whb\S_CSharpProgram\P_My_GIT\Core_WHB\Core_WHB_WebAPI\bin\System.Web.Http.Cors.dll
+E:\W whb\S_CSharpProgram\P_My_GIT\Core_WHB\Core_WHB_WebAPI\bin\System.Web.Http.Cors.xml

@@ -6,11 +6,11 @@
       <a href>收藏排行</a>
     </div>
     <div class="r">
-      <ul v-for="item in lists" :key="item.index">
+      <ul v-for="n in lists" :key="n">
         <li>
           <div class="top">
             <img src="images/touxiang.png" alt>
-            <p>{{item.ID}}</p>
+            <p>{{n.ID}}</p>
             <p>2018年9月1日</p>
           </div>
           <img src="../components/imgs/pic.jpg">
@@ -35,6 +35,7 @@
 // @ is an alias to /src
 import ArticleList from "@/components/ArticleList.vue";
 import Paging from "@/components/Paging.vue";
+import { log } from 'util';
 
 export default {
   name: "home",
@@ -44,28 +45,33 @@ export default {
   },
   data() {
     return {
-      lists: []
+      lists: {},
+      msg:String
     };
   },
   created() {
-    fetch("http://localhost:8010/api/userentities", {// must match 'Content-Type' header
+    fetch('/apis/api/userentities'
+    , 
+    {// must match 'Content-Type' header
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
       credentials: "same-origin", // include, same-origin, *omit
       headers: {
         'Access-Control-Allow-Origin':'*',
-        "content-type": "application/xml"
+        "content-type": "application/json"
       },
       method: "get", // *GET, POST, PUT, DELETE, etc.
-      mode: "no-cors", // no-cors, cors, *same-origin
-    })
-    .then(response => {
-      this.lists = response;
-      console.log(this.lists);
+      mode: "cors", // no-cors, cors, *same-origin
+    }
+    )
+    .then(function (res){
+      // this.lists = response;
+      // console.log(this.lists);
+      console.log(res)
     })
   },
   watch: {},
   methods: {}
-};
+}
 </script>
 
 <style lang="less" scoped>
