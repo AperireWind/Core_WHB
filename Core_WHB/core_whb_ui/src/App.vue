@@ -7,7 +7,7 @@
 
 <script>
 import Nav from "@/components/Nav.vue";
-import { isIP } from 'net';
+
 export default {
   components: {
     Nav

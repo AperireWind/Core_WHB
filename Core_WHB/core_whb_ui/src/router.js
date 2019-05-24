@@ -7,6 +7,8 @@ import Login from './components/Login.vue'
 Vue.use(Router)
 
 export default new Router({
+  //mode是为了去除‘#’
+  mode: 'history',
   routes: [
     {
       path: '/',
