@@ -18,7 +18,16 @@ namespace Core_WHB_WebAPI
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            
+        }
+
+        public override void Init()
+        {
+            this.AuthenticateRequest += WebApiApplication_AuthenticateRequest;
+            base.Init();
+        }
+        void WebApiApplication_AuthenticateRequest(object sender,EventArgs e)
+        {
+            HttpContext.Current.SetSessionStateBehavior(System.Web.SessionState.SessionStateBehavior.Required);
         }
     }
 }

@@ -2,17 +2,53 @@
   <div class="home">
     <div class="leftmenu">
       <!-- <a href class="cur">最新文章</a> -->
-      <a 
-      :class="['nav-item',item.nav]" 
-      v-for="(item,index) in lists" 
-      @click="line_active(index)" 
-      :key="index">
-        {{item.name}}
-      </a>
+      <a
+        :class="['nav-item',item.nav]"
+        v-for="(item,index) in lists"
+        @click="line_active(index)"
+        :key="index"
+      >{{item.name}}</a>
     </div>
     <div class="r">
       <!-- 最新文章 -->
-      <ul>
+      <ul v-if="this.num==0">
+        <li v-for="(n,index) in poinfoA1" :key="index">
+          <div class="top">
+            <img src="../components/imgs/touxiang.png" alt>
+            <p>{{n}}</p>
+            <p>2018年9月1日</p>
+          </div>
+          <img src="../components/imgs/pic.jpg">
+          <h3>
+            <!-- 路由传参 -->
+            <router-link :to="'/page/new/'+index">又多了一个锁币渠道——IBO时代来临</router-link>
+          </h3>
+          <p class="desc">EOS这周反弹，似乎在走独立行情，但是各个群的成员并没有激动，因为按照往常惯例，恐怕过几天还要跌回去，大家都差不多麻木了</p>
+          <p class="bot">
+            <i class="iconfont icon-zan"></i>
+            6666
+          </p>
+        </li>
+      </ul>
+      <ul v-if="this.num==1">
+        <li v-for="(n,index) in poinfoB1" :key="index">
+          <div class="top">
+            <img src="../components/imgs/touxiang.png" alt>
+            <p>{{n}}</p>
+            <p>2018年9月1日</p>
+          </div>
+          <img src="../components/imgs/pic.jpg">
+          <h3>
+            <router-link :to="'/page/hot/'+index">又多了一个锁币渠道——IBO时代来临</router-link>
+          </h3>
+          <p class="desc">EOS这周反弹，似乎在走独立行情，但是各个群的成员并没有激动，因为按照往常惯例，恐怕过几天还要跌回去，大家都差不多麻木了</p>
+          <p class="bot">
+            <i class="iconfont icon-zan"></i>
+            6666
+          </p>
+        </li>
+      </ul>
+      <ul v-if="this.num==2">
         <li v-for="(n,index) in tablists" :key="index">
           <div class="top">
             <img src="../components/imgs/touxiang.png" alt>
@@ -21,7 +57,7 @@
           </div>
           <img src="../components/imgs/pic.jpg">
           <h3>
-            <a href>又多了一个锁币渠道——IBO时代来临</a>
+            <a @click="routerTo(index)">又多了一个锁币渠道——IBO时代来临</a>
           </h3>
           <p class="desc">EOS这周反弹，似乎在走独立行情，但是各个群的成员并没有激动，因为按照往常惯例，恐怕过几天还要跌回去，大家都差不多麻木了</p>
           <p class="bot">
@@ -31,7 +67,7 @@
         </li>
       </ul>
       <div class="pagelist">
-        <Paging></Paging>
+        <PagingNav></PagingNav>
       </div>
     </div>
   </div>
@@ -40,67 +76,45 @@
 <script>
 // @ is an alias to /src
 import ArticleList from "@/components/ArticleList.vue";
-import Paging from "@/components/Paging.vue";
-import { log } from 'util';
+import PagingNav from "@/components/PagingNav.vue";
+import { log } from "util";
 
 export default {
   name: "home",
   components: {
     ArticleList,
-    Paging
+    PagingNav
+  },
+  props: {
+    poinfoA1: {
+      type: Array
+    },
+    poinfoB1: {
+      type: Array
+    }
   },
   data() {
     return {
-      msg:String,
-      num:0,
-      lists:[
-        {name:"最新文章",nav:'cur'},
-        {name:"热门资讯",nav:''},
-        {name:"收藏排行",nav:''},
+      msg: String,
+      num: 0,
+      lists: [
+        { name: "最新文章", nav: "cur" },
+        { name: "热门资讯", nav: "" },
+        { name: "收藏排行", nav: "" }
       ],
-      tablists:null,
-      tabs:[
-        {list: null},
-        {list: ['内容一01','内容二01','内容三01']},
-        {list: ['内容一02','内容二02','内容三02']},
-      ]
+      tablists: ["内容一02", "内容二02", "内容三02"]
     };
   },
-  created() {
-    fetch('apis/api/userentities', 
-    {// must match 'Content-Type' header
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin", // include, same-origin, *omit
-      headers: {
-        'Access-Control-Allow-Origin':'*',
-        "content-type": "application/json"
-      },
-      method: "get", // *GET, POST, PUT, DELETE, etc.
-      // mode: "cors", // no-cors, cors, *same-origin
-    }
-    )
-    .then(res=>{
-      res = res.json();
-      console.log(res)
-      return res;
-    })
-    .then(response=>{
-      this.tabs[0].list=response;
-      this.tablists=response;
-    })
-  },
-  watch: {},
   methods: {
-    line_active:function(index){
-      this.tabs.forEach((item,i)=>{
-        this.lists[i].nav='';
-      })
-      this.lists[index].nav='cur';
-      this.tablists=this.tabs[index].list;
-      console.log(this.tablists);
+    line_active: function(index) {
+      this.lists.forEach((item, i) => {
+        item.nav = "";
+      });
+      this.lists[index].nav = "cur";
+      this.num = index;
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -227,4 +241,3 @@ export default {
 }
 // 主体结束
 </style>
-
